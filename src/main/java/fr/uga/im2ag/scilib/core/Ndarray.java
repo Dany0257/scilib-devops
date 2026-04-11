@@ -152,55 +152,8 @@ public class Ndarray implements NdarrayInterface {
 
     @Override
     public String toString() {
-        if (shape.getNdim() == 1) {
-            return format1D();
-        } else if (shape.getNdim() == 2) {
-            return format2D();
-        }
-        // Fallback pour N dimensions
-        return "Ndarray(shape=" + shape + ", data=" + Arrays.toString(data) + ")";
-    }
-
-    private String format1D() {
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < data.length; i++) {
-            sb.append(formatValue(data[i]));
-            if (i < data.length - 1)
-                sb.append(", ");
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-    private String format2D() {
-        int rows = shape.getDim(0);
-        int cols = shape.getDim(1);
-        StringBuilder sb = new StringBuilder("[");
-        for (int r = 0; r < rows; r++) {
-            if (r > 0)
-                sb.append(" ");
-            sb.append("[");
-            for (int c = 0; c < cols; c++) {
-                sb.append(formatValue(data[r * cols + c]));
-                if (c < cols - 1)
-                    sb.append(", ");
-            }
-            sb.append("]");
-            if (r < rows - 1)
-                sb.append("\n");
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-    /**
-     * Formate un double : affiche "1.0" en "1.0" et "1.5" en "1.5".
-     */
-    private static String formatValue(double value) {
-        if (value == (long) value) {
-            return String.valueOf((long) value) + ".0";
-        }
-        return String.valueOf(value);
+        // On délègue l'affichage à la classe utilitaire Printer
+        return NdarrayPrinter.format(this);
     }
 
     // ============================
