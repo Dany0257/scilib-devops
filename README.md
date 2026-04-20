@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml/badge.svg)](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/badge/coverage-Jacoco-blue)
-[![Quality Gate Status](https://sonarqube.im2ag.univ-grenoble-alpes.fr/api/project_badges/measure?project=fr.uga.im2ag%3Ascilib-devops&metric=alert_status)](https://sonarqube.im2ag.univ-grenoble-alpes.fr/dashboard?id=fr.uga.im2ag%3Ascilib-devops)
+[![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=fr.uga.im2ag%3Ascilib-devops&metric=alert_status)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=fr.uga.im2ag%3Ascilib-devops)
 
 Bibliothèque de calcul scientifique en Java, inspirée de NumPy (M1 INFO DevOps - 2026).
 
