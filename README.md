@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml/badge.svg)](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/badge/coverage-Jacoco-blue)
+[![Quality Gate Status](https://sonarqube.im2ag.univ-grenoble-alpes.fr/api/project_badges/measure?project=fr.uga.im2ag%3Ascilib-devops&metric=alert_status)](https://sonarqube.im2ag.univ-grenoble-alpes.fr/dashboard?id=fr.uga.im2ag%3Ascilib-devops)
 
 Bibliothèque de calcul scientifique en Java, inspirée de NumPy (M1 INFO DevOps - 2026).
 
@@ -48,6 +49,7 @@ Pour assurer la qualité du code et le respect des principes DevOps, nous utilis
 - **JUnit 5** : Pour les tests unitaires (55 tests couvrant le cœur de la bibliothèque).
 - **JaCoCo** : Intégré à Maven pour mesurer la couverture de code par les tests.
 - **GitHub Actions** : Orchestration de l'intégration continue (CI) à chaque push ou Pull Request.
+- **SonarQube** : Analyse statique du code (Quality Gate) effectuée automatiquement dans le pipeline CI.
 
 ## Workflow Git
 
@@ -56,6 +58,18 @@ Nous avons adopté un workflow collaboratif basé sur des **feature branches** :
 - La branche `develop` sert de base pour l'intégration des nouvelles fonctionnalités.
 - Toute nouvelle modification passe par une branche dédiée (ex: `feature/ndarray-core`) et fait l'objet d'une **Pull Request** avant d'être fusionnée dans `develop`.
 - Nous avons mis en place des **protections de branches** sur `main` et `develop` pour interdire les push directs et forcer le passage par des Pull Requests.
+
+## Livraison Continue (Docker)
+
+Conformément aux attentes DevOps, nous générons une image Docker "prête à l'emploi" qui contient et exécute automatiquement notre application de démonstration.
+L'image est construite via un `Dockerfile` multi-stage pour garantir un poids minimal, puis elle est poussée automatiquement par notre CI vers le registre **GitHub Container Registry (GHCR)**.
+
+🔗 **Lien vers le dépôt d'images** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
+
+Vous pouvez tester l'image locale ou distante en tapant :
+```bash
+docker run --rm ghcr.io/dany0257/scilib-devops:latest
+```
 
 ## Feedback
 
