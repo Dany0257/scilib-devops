@@ -99,7 +99,7 @@ class ShapeTest {
 
     @Test
     void testShapeEmptyThrows() {
-        assertThrows(IllegalArgumentException.class, () -> new Shape());
+        assertThrows(IllegalArgumentException.class, Shape::new);
     }
 
     @Test

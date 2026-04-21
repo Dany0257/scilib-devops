@@ -49,7 +49,7 @@ class NdarrayFactoryTest {
 
     @Test
     void testArray() {
-        double[] input = {10.5, 20.5, 30.5};
+        double[] input = { 10.5, 20.5, 30.5 };
         NdarrayInterface a = NdarrayFactory.array(input);
         assertEquals(1, a.getNdim());
         assertEquals(3, a.getSize());
@@ -59,6 +59,14 @@ class NdarrayFactoryTest {
     @Test
     void testArrayExceptions() {
         assertThrows(IllegalArgumentException.class, () -> NdarrayFactory.array(null));
-        assertThrows(IllegalArgumentException.class, () -> NdarrayFactory.array(new double[]{}));
+        assertThrows(IllegalArgumentException.class, () -> NdarrayFactory.array(new double[] {}));
+    }
+
+    @Test
+    void testConstructorIsPrivate() throws NoSuchMethodException {
+        java.lang.reflect.Constructor<NdarrayFactory> constructor = NdarrayFactory.class.getDeclaredConstructor();
+        assertTrue(java.lang.reflect.Modifier.isPrivate(constructor.getModifiers()));
+        constructor.setAccessible(true);
+        assertThrows(java.lang.reflect.InvocationTargetException.class, constructor::newInstance);
     }
 }
