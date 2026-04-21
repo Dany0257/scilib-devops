@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import fr.uga.im2ag.scilib.exceptions.ShapeMismatchException;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+
 // Unit tests for the Broadcasting utility class.
 class BroadcastingTest {
 
@@ -43,6 +45,19 @@ class BroadcastingTest {
     void testBroadcastShapeIncompatible() {
         assertThrows(ShapeMismatchException.class,
                 () -> Broadcasting.broadcastShape(new int[] { 2, 3 }, new int[] { 4, 3 }));
+    }
+
+    @Test
+    void testBroadcastShapeOneVsMany() {
+        // (2, 3) and (1, 3) -> (2, 3)
+        // Covers branch where dimB == 1 but dimA != 1
+        int[] result = Broadcasting.broadcastShape(new int[] { 2, 3 }, new int[] { 1, 3 });
+        assertArrayEquals(new int[] { 2, 3 }, result);
+
+        // (1, 3) and (2, 3) -> (2, 3)
+        // Covers branch where dimA == 1 but dimB != 1
+        result = Broadcasting.broadcastShape(new int[] { 1, 3 }, new int[] { 2, 3 });
+        assertArrayEquals(new int[] { 2, 3 }, result);
     }
 
     @Test
@@ -166,5 +181,14 @@ class BroadcastingTest {
         // a and b unchanged
         assertEquals(1.0, a.get(0), EPS);
         assertEquals(10.0, b.get(0), EPS);
+    }
+
+    @Test
+    void testConstructorIsPrivate()
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        java.lang.reflect.Constructor<Broadcasting> constructor = Broadcasting.class.getDeclaredConstructor();
+        assertTrue(java.lang.reflect.Modifier.isPrivate(constructor.getModifiers()));
+        constructor.setAccessible(true);
+        constructor.newInstance();
     }
 }

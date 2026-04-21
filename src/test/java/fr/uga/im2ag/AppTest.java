@@ -14,4 +14,11 @@ class AppTest {
     void shouldAnswerWithTrue() {
         assertTrue(true);
     }
+
+    @Test
+    void testMain() {
+        App.main(new String[] {});
+        // App.main is a demonstration, we just verify it runs without exception
+        assertTrue(true);
+    }
 }

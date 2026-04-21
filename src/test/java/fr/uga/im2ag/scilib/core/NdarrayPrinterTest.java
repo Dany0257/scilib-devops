@@ -1,6 +1,6 @@
 package fr.uga.im2ag.scilib.core;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -10,7 +10,7 @@ class NdarrayPrinterTest {
 
     @Test
     void testFormat1D() {
-        NdarrayInterface a = NdarrayFactory.array(new double[]{1.0, 2.5, 3.0});
+        NdarrayInterface a = NdarrayFactory.array(new double[] { 1.0, 2.5, 3.0 });
         String expected = "[1.0, 2.5, 3.0]";
         assertEquals(expected, NdarrayPrinter.format(a));
     }
@@ -23,7 +23,7 @@ class NdarrayPrinterTest {
         a.set(2.0, 0, 1);
         a.set(3.0, 1, 0);
         a.set(4.5, 1, 1);
-        
+
         String expected = "[[1.0, 2.0]\n [3.0, 4.5]]";
         assertEquals(expected, NdarrayPrinter.format(a));
     }
@@ -33,5 +33,13 @@ class NdarrayPrinterTest {
         NdarrayInterface a = NdarrayFactory.zeros(2, 2, 2);
         String expected = "Ndarray(shape=(2, 2, 2))";
         assertEquals(expected, NdarrayPrinter.format(a));
+    }
+
+    @Test
+    void testConstructorIsPrivate() throws NoSuchMethodException {
+        java.lang.reflect.Constructor<NdarrayPrinter> constructor = NdarrayPrinter.class.getDeclaredConstructor();
+        assertTrue(java.lang.reflect.Modifier.isPrivate(constructor.getModifiers()));
+        constructor.setAccessible(true);
+        assertThrows(java.lang.reflect.InvocationTargetException.class, constructor::newInstance);
     }
 }
