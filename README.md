@@ -48,16 +48,20 @@ mvn exec:java -Dexec.mainClass="fr.uga.im2ag.App"
 ```java
 import fr.uga.im2ag.scilib.core.NdarrayInterface;
 import fr.uga.im2ag.scilib.core.NdarrayFactory;
+import fr.uga.im2ag.scilib.core.UFuncs;
+import fr.uga.im2ag.scilib.core.Broadcasting;
 
-// Création d'une matrice 2x3 remplie de zéros
-NdarrayInterface a = NdarrayFactory.zeros(2, 3);
+// Création d'une matrice 2x3
+NdarrayInterface a = NdarrayFactory.arange(0, 6, 1).reshape(2, 3);
 
-// Création d'un vecteur et reshape en matrice
-NdarrayInterface b = NdarrayFactory.arange(0, 6, 1).reshape(2, 3);
+// Fonctions universelles (ex: racine carrée élément par élément)
+NdarrayInterface s = UFuncs.sqrt(a);
 
-// Addition
-NdarrayInterface result = a.add(b);
-System.out.println(result);
+// Broadcasting (Addition d'une ligne à toute la matrice)
+NdarrayInterface v = NdarrayFactory.array(new double[]{10, 20, 30});
+NdarrayInterface res = Broadcasting.add(a, v);
+
+System.out.println(res);
 ```
 
 ## Outils utilisés
