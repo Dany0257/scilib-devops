@@ -13,13 +13,15 @@
   <name>Scientific Library</name>
   <description>Bibliothèque de type NumPy en Java – M1 DevOps project</description>
 
-  <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>5.10.2</junit.version>
-    <jacoco.version>0.8.11</jacoco.version>
-  </properties>
+    <properties>
+      <maven.compiler.source>17</maven.compiler.source>
+      <maven.compiler.target>17</maven.compiler.target>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <junit.version>5.10.2</junit.version>
+      <jacoco.version>0.8.11</jacoco.version>
+      <sonar.projectKey>M1-DEVOPS</sonar.projectKey>
+      <sonar.host.url>https://im2ag-sonar.univ-grenoble-alpes.fr</sonar.host.url>
+    </properties>
 
   <dependencies>
     <dependency>
@@ -62,6 +64,34 @@
             <goals><goal>report</goal></goals>
           </execution>
         </executions>
+      </plugin>
+      <!-- Plugin pour créer un JAR exécutable -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>fr.uga.im2ag.App</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- SonarQube -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.10.0.2594</version>
       </plugin>
     </plugins>
   </build>
