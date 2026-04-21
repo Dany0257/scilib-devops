@@ -27,7 +27,7 @@ La bibliothèque `scilib-devops` permet de manipuler des tableaux multidimension
 - **Broadcasting** : Support complet des règles de diffusion NumPy pour les opérations binaires entre tableaux de dimensions différentes.
 - **Affichage** : Formatage textuel optimisé pour la lecture dans la console (style NumPy).
 
-## 🚀 Guide de démarrage rapide
+## Guide de démarrage rapide
 
 Pour cloner et tester le projet immédiatement :
 
@@ -86,7 +86,7 @@ Nous avons adopté un workflow collaboratif basé sur des **feature branches** :
 Conformément aux attentes DevOps, nous générons une image Docker "prête à l'emploi" qui contient et exécute automatiquement notre application de démonstration.
 L'image est construite via un `Dockerfile` multi-stage (distribué via **Eclipse Temurin 17**) pour garantir un poids minimal, puis elle est poussée automatiquement par notre CI vers le registre **GitHub Container Registry (GHCR)**.
 
-🔗 **Lien vers le registre** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
+**Lien vers le registre** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
 
 Pour tester la bibliothèque immédiatement sans rien installer :
 ```bash
