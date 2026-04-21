@@ -132,7 +132,7 @@ jobs:
       - name: Upload de l'artefact Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: target/site/apidocs
+          path: target/reports/apidocs
 
       - name: Déploiement sur GitHub Pages
         id: deployment
