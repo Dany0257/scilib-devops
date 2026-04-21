@@ -27,6 +27,11 @@ La bibliothèque `scilib-devops` permet de manipuler des tableaux multidimension
 - **Broadcasting** : Support complet des règles de diffusion NumPy pour les opérations binaires entre tableaux de dimensions différentes.
 - **Affichage** : Formatage textuel optimisé pour la lecture dans la console (style NumPy).
 
+## Documentation
+
+La Javadoc du projet est générée automatiquement et hébergée sur GitHub Pages :
+**[Lien vers la Javadoc](https://dany0257.github.io/scilib-devops/)**
+
 ## Guide de démarrage rapide
 
 Pour cloner et tester le projet immédiatement :
