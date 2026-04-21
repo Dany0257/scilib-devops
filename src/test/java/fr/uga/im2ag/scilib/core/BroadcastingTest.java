@@ -6,59 +6,59 @@ import fr.uga.im2ag.scilib.exceptions.ShapeMismatchException;
 import org.junit.jupiter.api.Test;
 
 // Unit tests for the Broadcasting utility class.
-public class BroadcastingTest {
+class BroadcastingTest {
 
     private static final double EPS = 1e-9;
 
     // BROADCAST SHAPE
 
     @Test
-    public void testBroadcastShapeSameShape() {
+    void testBroadcastShapeSameShape() {
         int[] result = Broadcasting.broadcastShape(new int[] { 2, 3 }, new int[] { 2, 3 });
         assertArrayEquals(new int[] { 2, 3 }, result);
     }
 
     @Test
-    public void testBroadcastShapeVectorAndMatrix() {
+    void testBroadcastShapeVectorAndMatrix() {
         // (3,) and (2, 3) -> (2, 3)
         int[] result = Broadcasting.broadcastShape(new int[] { 3 }, new int[] { 2, 3 });
         assertArrayEquals(new int[] { 2, 3 }, result);
     }
 
     @Test
-    public void testBroadcastShapeColumnAndMatrix() {
+    void testBroadcastShapeColumnAndMatrix() {
         // (2, 1) and (2, 3) -> (2, 3)
         int[] result = Broadcasting.broadcastShape(new int[] { 2, 1 }, new int[] { 2, 3 });
         assertArrayEquals(new int[] { 2, 3 }, result);
     }
 
     @Test
-    public void testBroadcastShapeOuter() {
+    void testBroadcastShapeOuter() {
         // (4, 1) and (1, 5) -> (4, 5)
         int[] result = Broadcasting.broadcastShape(new int[] { 4, 1 }, new int[] { 1, 5 });
         assertArrayEquals(new int[] { 4, 5 }, result);
     }
 
     @Test
-    public void testBroadcastShapeIncompatible() {
+    void testBroadcastShapeIncompatible() {
         assertThrows(ShapeMismatchException.class,
                 () -> Broadcasting.broadcastShape(new int[] { 2, 3 }, new int[] { 4, 3 }));
     }
 
     @Test
-    public void testIsBroadcastableTrue() {
+    void testIsBroadcastableTrue() {
         assertTrue(Broadcasting.isBroadcastable(new int[] { 3 }, new int[] { 2, 3 }));
     }
 
     @Test
-    public void testIsBroadcastableFalse() {
+    void testIsBroadcastableFalse() {
         assertFalse(Broadcasting.isBroadcastable(new int[] { 2, 3 }, new int[] { 4, 3 }));
     }
 
     // ADD with broadcasting
 
     @Test
-    public void testAddSameShape() {
+    void testAddSameShape() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 2, 2 });
         Ndarray b = new Ndarray(new double[] { 10, 20, 30, 40 }, new int[] { 2, 2 });
         Ndarray r = Broadcasting.add(a, b);
@@ -69,7 +69,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testAddVectorToMatrix() {
+    void testAddVectorToMatrix() {
         // matrix (2,3) + vector (3,) -> matrix (2,3)
         Ndarray m = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray v = new Ndarray(new double[] { 10, 20, 30 }, new int[] { 3 });
@@ -84,7 +84,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testAddColumnVectorToMatrix() {
+    void testAddColumnVectorToMatrix() {
         // matrix (2,3) + column (2,1) -> matrix (2,3)
         Ndarray m = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray col = new Ndarray(new double[] { 10, 20 }, new int[] { 2, 1 });
@@ -98,7 +98,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testAddOuter() {
+    void testAddOuter() {
         // (4,1) + (1,5) -> (4,5)
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 4, 1 });
         Ndarray b = new Ndarray(new double[] { 10, 20, 30, 40, 50 }, new int[] { 1, 5 });
@@ -111,7 +111,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testAddIncompatible() {
+    void testAddIncompatible() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 2, 2 });
         assertThrows(ShapeMismatchException.class, () -> Broadcasting.add(a, b));
@@ -120,7 +120,7 @@ public class BroadcastingTest {
     // SUB / MUL / DIV with broadcasting
 
     @Test
-    public void testSubBroadcasting() {
+    void testSubBroadcasting() {
         Ndarray m = new Ndarray(new double[] { 10, 20, 30, 40, 50, 60 }, new int[] { 2, 3 });
         Ndarray v = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray r = Broadcasting.sub(m, v);
@@ -133,7 +133,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testMulBroadcasting() {
+    void testMulBroadcasting() {
         Ndarray m = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray v = new Ndarray(new double[] { 10, 100, 1000 }, new int[] { 3 });
         Ndarray r = Broadcasting.mul(m, v);
@@ -146,7 +146,7 @@ public class BroadcastingTest {
     }
 
     @Test
-    public void testDivBroadcasting() {
+    void testDivBroadcasting() {
         Ndarray m = new Ndarray(new double[] { 10, 20, 30, 40 }, new int[] { 2, 2 });
         Ndarray v = new Ndarray(new double[] { 2, 4 }, new int[] { 2 });
         Ndarray r = Broadcasting.div(m, v);
@@ -159,7 +159,7 @@ public class BroadcastingTest {
     // PRESERVATION
 
     @Test
-    public void testInputsUnchanged() {
+    void testInputsUnchanged() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 10, 20, 30 }, new int[] { 3 });
         Broadcasting.add(a, b);

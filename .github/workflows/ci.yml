@@ -89,6 +89,8 @@ jobs:
           tags: |
             type=raw,value=latest
             type=sha,format=short
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Construction et Push de l'image
         uses: docker/build-push-action@v5

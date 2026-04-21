@@ -39,7 +39,8 @@ public final class UFuncs {
             // increment idx in row-major order
             for (int d = ndim - 1; d >= 0; d--) {
                 idx[d]++;
-                if (idx[d] < dims[d]) break;
+                if (idx[d] < dims[d])
+                    break;
                 idx[d] = 0;
             }
         }
