@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 // Unit tests for the UFuncs utility class.
-public class UFuncsTest {
+class UFuncsTest {
 
     private static final double EPS = 1e-9;
 
     // SQRT
 
     @Test
-    public void testSqrt1D() {
+    void testSqrt1D() {
         Ndarray a = new Ndarray(new double[] { 1, 4, 9, 16 }, new int[] { 4 });
         Ndarray r = UFuncs.sqrt(a);
         assertEquals(1.0, r.get(0), EPS);
@@ -24,7 +24,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testSqrt2D() {
+    void testSqrt2D() {
         Ndarray a = new Ndarray(new double[] { 1, 4, 9, 16 }, new int[] { 2, 2 });
         Ndarray r = UFuncs.sqrt(a);
         assertEquals(1.0, r.get(0, 0), EPS);
@@ -34,7 +34,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testSqrtInPlace() {
+    void testSqrtInPlace() {
         Ndarray a = new Ndarray(new double[] { 1, 4, 9 }, new int[] { 3 });
         Ndarray r = UFuncs.sqrtInPlace(a);
         assertSame(a, r);
@@ -46,7 +46,7 @@ public class UFuncsTest {
     // EXP
 
     @Test
-    public void testExp() {
+    void testExp() {
         Ndarray a = new Ndarray(new double[] { 0, 1, 2 }, new int[] { 3 });
         Ndarray r = UFuncs.exp(a);
         assertEquals(1.0, r.get(0), EPS);
@@ -55,7 +55,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testExpInPlace() {
+    void testExpInPlace() {
         Ndarray a = new Ndarray(new double[] { 0, 1 }, new int[] { 2 });
         UFuncs.expInPlace(a);
         assertEquals(1.0, a.get(0), EPS);
@@ -65,7 +65,7 @@ public class UFuncsTest {
     // LOG
 
     @Test
-    public void testLog() {
+    void testLog() {
         Ndarray a = new Ndarray(new double[] { 1, Math.E, Math.E * Math.E }, new int[] { 3 });
         Ndarray r = UFuncs.log(a);
         assertEquals(0.0, r.get(0), EPS);
@@ -74,7 +74,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testLogInPlace() {
+    void testLogInPlace() {
         Ndarray a = new Ndarray(new double[] { 1, Math.E }, new int[] { 2 });
         UFuncs.logInPlace(a);
         assertEquals(0.0, a.get(0), EPS);
@@ -84,7 +84,7 @@ public class UFuncsTest {
     // ABS
 
     @Test
-    public void testAbs() {
+    void testAbs() {
         Ndarray a = new Ndarray(new double[] { -1, 2, -3, 4 }, new int[] { 4 });
         Ndarray r = UFuncs.abs(a);
         assertEquals(1.0, r.get(0), EPS);
@@ -96,7 +96,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testAbsInPlace() {
+    void testAbsInPlace() {
         Ndarray a = new Ndarray(new double[] { -5, -10, 3 }, new int[] { 3 });
         UFuncs.absInPlace(a);
         assertEquals(5.0, a.get(0), EPS);
@@ -107,7 +107,7 @@ public class UFuncsTest {
     // NEG
 
     @Test
-    public void testNeg() {
+    void testNeg() {
         Ndarray a = new Ndarray(new double[] { 1, -2, 3 }, new int[] { 3 });
         Ndarray r = UFuncs.neg(a);
         assertEquals(-1.0, r.get(0), EPS);
@@ -116,7 +116,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testNegInPlace() {
+    void testNegInPlace() {
         Ndarray a = new Ndarray(new double[] { 1, -2, 3 }, new int[] { 3 });
         UFuncs.negInPlace(a);
         assertEquals(-1.0, a.get(0), EPS);
@@ -127,7 +127,7 @@ public class UFuncsTest {
     // SQUARE
 
     @Test
-    public void testSquare() {
+    void testSquare() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 4 });
         Ndarray r = UFuncs.square(a);
         assertEquals(1.0, r.get(0), EPS);
@@ -137,7 +137,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testSquareInPlace() {
+    void testSquareInPlace() {
         Ndarray a = new Ndarray(new double[] { 2, 5 }, new int[] { 2 });
         UFuncs.squareInPlace(a);
         assertEquals(4.0, a.get(0), EPS);
@@ -147,7 +147,7 @@ public class UFuncsTest {
     // SIN / COS / TAN
 
     @Test
-    public void testSin() {
+    void testSin() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI / 2, Math.PI }, new int[] { 3 });
         Ndarray r = UFuncs.sin(a);
         assertEquals(0.0, r.get(0), EPS);
@@ -156,7 +156,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testSinInPlace() {
+    void testSinInPlace() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI / 2 }, new int[] { 2 });
         UFuncs.sinInPlace(a);
         assertEquals(0.0, a.get(0), EPS);
@@ -164,7 +164,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testCos() {
+    void testCos() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI / 2, Math.PI }, new int[] { 3 });
         Ndarray r = UFuncs.cos(a);
         assertEquals(1.0, r.get(0), EPS);
@@ -173,7 +173,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testCosInPlace() {
+    void testCosInPlace() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI }, new int[] { 2 });
         UFuncs.cosInPlace(a);
         assertEquals(1.0, a.get(0), EPS);
@@ -181,7 +181,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testTan() {
+    void testTan() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI / 4 }, new int[] { 2 });
         Ndarray r = UFuncs.tan(a);
         assertEquals(0.0, r.get(0), EPS);
@@ -189,7 +189,7 @@ public class UFuncsTest {
     }
 
     @Test
-    public void testTanInPlace() {
+    void testTanInPlace() {
         Ndarray a = new Ndarray(new double[] { 0, Math.PI / 4 }, new int[] { 2 });
         UFuncs.tanInPlace(a);
         assertEquals(0.0, a.get(0), EPS);
@@ -199,7 +199,7 @@ public class UFuncsTest {
     // SHAPE PRESERVATION
 
     @Test
-    public void testShapePreserved() {
+    void testShapePreserved() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray r = UFuncs.square(a);
         assertArrayEquals(new int[] { 2, 3 }, r.getShape().getDims());

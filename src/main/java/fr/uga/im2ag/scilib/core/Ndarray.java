@@ -100,9 +100,10 @@ public class Ndarray implements NdarrayInterface {
     @Override
     public NdarrayInterface add(NdarrayInterface other) {
         checkSameShape(other);
+        double[] sharedData = other.getData(); // Utilisation sécurisée de l'interface
         double[] result = new double[data.length];
         for (int i = 0; i < data.length; i++) {
-            result[i] = this.data[i] + ((Ndarray) other).data[i];
+            result[i] = this.data[i] + sharedData[i];
         }
         return new Ndarray(result, shape.getDims());
     }
@@ -119,8 +120,9 @@ public class Ndarray implements NdarrayInterface {
     @Override
     public NdarrayInterface addInPlace(NdarrayInterface other) {
         checkSameShape(other);
+        double[] sharedData = other.getData(); // Utilisation sécurisée de l'interface
         for (int i = 0; i < data.length; i++) {
-            this.data[i] += ((Ndarray) other).data[i];
+            this.data[i] += sharedData[i];
         }
         return this;
     }

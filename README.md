@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml/badge.svg)](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/badge/coverage-Jacoco-blue)
-[![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=fr.uga.im2ag%3Ascilib-devops&metric=alert_status)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=fr.uga.im2ag%3Ascilib-devops)
+[![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=M1-DEVOPS&metric=alert_status)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=M1-DEVOPS)
 
 Bibliothèque de calcul scientifique en Java, inspirée de NumPy (M1 INFO DevOps - 2026).
 
@@ -23,7 +23,25 @@ La bibliothèque `scilib-devops` permet de manipuler des tableaux multidimension
   - Support de l'addition de scalaires.
 - **Transformation** :
   - `reshape(newDims...)` pour changer la structure du tableau sans modifier les données.
+- **Fonctions Universelles (UFuncs)** : Support de fonctions mathématiques (`sqrt`, `exp`, `log`, `sin`, `cos`, etc.) en versions standard et en-place.
+- **Broadcasting** : Support complet des règles de diffusion NumPy pour les opérations binaires entre tableaux de dimensions différentes.
 - **Affichage** : Formatage textuel optimisé pour la lecture dans la console (style NumPy).
+
+## 🚀 Guide de démarrage rapide
+
+Pour cloner et tester le projet immédiatement :
+
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/Dany0257/scilib-devops.git
+cd scilib-devops
+
+# 2. Compiler et lancer les tests
+mvn clean verify
+
+# 3. Lancer l'application de démonstration
+mvn exec:java -Dexec.mainClass="fr.uga.im2ag.App"
+```
 
 ## Utilisation
 
@@ -46,7 +64,7 @@ System.out.println(result);
 
 Pour assurer la qualité du code et le respect des principes DevOps, nous utilisons :
 - **Maven** : Pour la gestion des dépendances et l'automatisation du cycle de vie du projet (compilation, tests, package).
-- **JUnit 5** : Pour les tests unitaires (55 tests couvrant le cœur de la bibliothèque).
+- **JUnit 5** : Pour les tests unitaires (91 tests couvrant l'intégralité de la bibliothèque).
 - **JaCoCo** : Intégré à Maven pour mesurer la couverture de code par les tests.
 - **GitHub Actions** : Orchestration de l'intégration continue (CI) à chaque push ou Pull Request.
 - **SonarQube** : Analyse statique du code (Quality Gate) effectuée automatiquement dans le pipeline CI.
@@ -70,6 +88,13 @@ Vous pouvez tester l'image locale ou distante en tapant :
 ```bash
 docker run --rm ghcr.io/dany0257/scilib-devops:latest
 ```
+
+## Architecture Technique
+
+Le cœur de la bibliothèque repose sur une structure de données **Row-Major** :
+- Les données multi-dimensionnelles sont stockées dans un unique tableau de `double[]` à plat pour optimiser les performances mémoire.
+- La classe `Shape` gère la correspondance entre les indices multi-dimensionnels et l'index 1D physique.
+- L'architecture est modulaire : les opérations avancées (Broadcasting, UFuncs) sont séparées du cœur (`Ndarray`) pour faciliter la maintenance.
 
 ## Feedback
 

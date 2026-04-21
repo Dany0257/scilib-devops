@@ -26,6 +26,13 @@ public interface NdarrayInterface {
     // --- Accès aux données ---
 
     /**
+     * Retourne une copie des données internes (tableau 1D à plat).
+     * 
+     * @return une copie du tableau de doubles.
+     */
+    double[] getData();
+
+    /**
      * Retourne la valeur à la position donnée.
      *
      * @param indices les indices (ex: get(1, 2) pour ligne 1, colonne 2)

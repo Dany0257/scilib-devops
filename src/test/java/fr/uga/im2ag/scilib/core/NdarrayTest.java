@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests unitaires pour la classe Ndarray.
  */
-public class NdarrayTest {
+class NdarrayTest {
 
     // ===================================
     // CONSTRUCTEURS
     // ===================================
 
     @Test
-    public void testConstructorZeros1D() {
+    void testConstructorZeros1D() {
         Ndarray a = new Ndarray(3);
         assertEquals(1, a.getNdim());
         assertEquals(3, a.getSize());
@@ -29,7 +29,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testConstructorZeros2D() {
+    void testConstructorZeros2D() {
         Ndarray a = new Ndarray(2, 3);
         assertEquals(2, a.getNdim());
         assertEquals(6, a.getSize());
@@ -41,7 +41,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testConstructorWithData() {
+    void testConstructorWithData() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         assertEquals(2, a.getNdim());
         assertEquals(6, a.getSize());
@@ -50,7 +50,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testConstructorDataSizeMismatch() {
+    void testConstructorDataSizeMismatch() {
         assertThrows(IllegalArgumentException.class, () -> new Ndarray(new double[] { 1, 2, 3 }, new int[] { 2, 3 }));
     }
 
@@ -59,7 +59,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testGetSet1D() {
+    void testGetSet1D() {
         Ndarray a = new Ndarray(3);
         a.set(5.0, 0);
         a.set(10.0, 2);
@@ -69,7 +69,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testGetSet2D() {
+    void testGetSet2D() {
         Ndarray a = new Ndarray(2, 3);
         a.set(42.0, 1, 2);
         assertEquals(42.0, a.get(1, 2));
@@ -77,25 +77,25 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testGetIndexOutOfBounds() {
+    void testGetIndexOutOfBounds() {
         Ndarray a = new Ndarray(2, 3);
         assertThrows(IndexOutOfBoundsNdarrayException.class, () -> a.get(5, 0));
     }
 
     @Test
-    public void testGetNegativeIndex() {
+    void testGetNegativeIndex() {
         Ndarray a = new Ndarray(3);
         assertThrows(IndexOutOfBoundsNdarrayException.class, () -> a.get(-1));
     }
 
     @Test
-    public void testGetWrongNumberOfIndices() {
+    void testGetWrongNumberOfIndices() {
         Ndarray a = new Ndarray(2, 3);
         assertThrows(IndexOutOfBoundsNdarrayException.class, () -> a.get(0));
     }
 
     @Test
-    public void testSetIndexOutOfBounds() {
+    void testSetIndexOutOfBounds() {
         Ndarray a = new Ndarray(3);
         assertThrows(IndexOutOfBoundsNdarrayException.class, () -> a.set(1.0, 5));
     }
@@ -105,7 +105,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testGetDataReturnsCopy() {
+    void testGetDataReturnsCopy() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         double[] data = a.getData();
         data[0] = 999;
@@ -117,7 +117,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testAdd1D() {
+    void testAdd1D() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 4, 5, 6 }, new int[] { 3 });
         NdarrayInterface result = a.add(b);
@@ -129,7 +129,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testAdd2D() {
+    void testAdd2D() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 2, 2 });
         Ndarray b = new Ndarray(new double[] { 10, 20, 30, 40 }, new int[] { 2, 2 });
         NdarrayInterface result = a.add(b);
@@ -138,14 +138,14 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testAddShapeMismatch() {
+    void testAddShapeMismatch() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2 }, new int[] { 2 });
         assertThrows(ShapeMismatchException.class, () -> a.add(b));
     }
 
     @Test
-    public void testAddScalar() {
+    void testAddScalar() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         NdarrayInterface result = a.add(10.0);
         assertEquals(11.0, result.get(0));
@@ -160,7 +160,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testAddInPlace() {
+    void testAddInPlace() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 10, 20, 30 }, new int[] { 3 });
         NdarrayInterface result = a.addInPlace(b);
@@ -171,14 +171,14 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testAddInPlaceShapeMismatch() {
+    void testAddInPlaceShapeMismatch() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2 }, new int[] { 2 });
         assertThrows(ShapeMismatchException.class, () -> a.addInPlace(b));
     }
 
     @Test
-    public void testAddInPlaceScalar() {
+    void testAddInPlaceScalar() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         NdarrayInterface result = a.addInPlace(5.0);
         assertEquals(6.0, a.get(0));
@@ -192,7 +192,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testReshape() {
+    void testReshape() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6 });
         NdarrayInterface reshaped = a.reshape(2, 3);
         assertEquals(2, reshaped.getNdim());
@@ -203,7 +203,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testReshape2Dto1D() {
+    void testReshape2Dto1D() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 2, 2 });
         NdarrayInterface reshaped = a.reshape(4);
         assertEquals(1, reshaped.getNdim());
@@ -212,7 +212,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testReshapeInvalidSize() {
+    void testReshapeInvalidSize() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6 });
         assertThrows(InvalidReshapeException.class, () -> a.reshape(2, 4));
     }
@@ -222,20 +222,20 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testToString1D() {
+    void testToString1D() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         assertEquals("[1.0, 2.0, 3.0]", a.toString());
     }
 
     @Test
-    public void testToString2D() {
+    void testToString2D() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4 }, new int[] { 2, 2 });
         String expected = "[[1.0, 2.0]\n [3.0, 4.0]]";
         assertEquals(expected, a.toString());
     }
 
     @Test
-    public void testToStringDecimals() {
+    void testToStringDecimals() {
         Ndarray a = new Ndarray(new double[] { 1.5, 2.75 }, new int[] { 2 });
         assertEquals("[1.5, 2.75]", a.toString());
     }
@@ -245,7 +245,7 @@ public class NdarrayTest {
     // ===================================
 
     @Test
-    public void testEqualsSame() {
+    void testEqualsSame() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         assertEquals(a, b);
@@ -253,27 +253,27 @@ public class NdarrayTest {
     }
 
     @Test
-    public void testEqualsDifferentData() {
+    void testEqualsDifferentData() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3 }, new int[] { 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2, 4 }, new int[] { 3 });
         assertNotEquals(a, b);
     }
 
     @Test
-    public void testEqualsDifferentShape() {
+    void testEqualsDifferentShape() {
         Ndarray a = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 2, 3 });
         Ndarray b = new Ndarray(new double[] { 1, 2, 3, 4, 5, 6 }, new int[] { 3, 2 });
         assertNotEquals(a, b);
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         Ndarray a = new Ndarray(new double[] { 1, 2 }, new int[] { 2 });
         assertEquals(a, a);
     }
 
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         Ndarray a = new Ndarray(new double[] { 1, 2 }, new int[] { 2 });
         assertNotEquals(null, a);
     }

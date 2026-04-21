@@ -2,6 +2,9 @@ package fr.uga.im2ag;
 
 import fr.uga.im2ag.scilib.core.NdarrayFactory;
 import fr.uga.im2ag.scilib.core.NdarrayInterface;
+import fr.uga.im2ag.scilib.core.Ndarray;
+import fr.uga.im2ag.scilib.core.UFuncs;
+import fr.uga.im2ag.scilib.core.Broadcasting;
 
 /**
  * Application de Démonstration complète de la bibliothèque Scilib-DevOps
@@ -69,6 +72,24 @@ public class App {
         System.out.println("Mutation d'une matrice 2x3 en 3x2 :");
         NdarrayInterface reshaped = m.reshape(3, 2);
         System.out.println(reshaped);
+
+        // --- 6. FONCTIONS UNIVERSELLES (UFuncs) ---
+        System.out.println("\n6. FONCTIONS UNIVERSELLES (UFuncs) :");
+        Ndarray v = (Ndarray) NdarrayFactory.array(new double[] { 1.0, 4.0, 9.0 });
+        System.out.println("Vecteur v : " + v);
+        System.out.println("Racine carrée (sqrt) : " + UFuncs.sqrt(v));
+        System.out.println("Exponentielle (exp)  : " + UFuncs.exp(v));
+
+        // --- 7. BROADCASTING (NumPy-Style) ---
+        System.out.println("\n7. BROADCASTING :");
+        Ndarray matrix = (Ndarray) NdarrayFactory.ones(2, 3);
+        Ndarray row = (Ndarray) NdarrayFactory.array(new double[] { 10, 20, 30 });
+        System.out.println("Matrice (2,3) :\n" + matrix);
+        System.out.println("Ligne (3,) : " + row);
+
+        System.out.println("Résultat de l'addition avec Broadcasting :");
+        Ndarray resBroadcast = Broadcasting.add(matrix, row);
+        System.out.println(resBroadcast);
 
         System.out.println("\n=================================================");
         System.out.println("   FIN DE LA DÉMONSTRATION");

@@ -52,7 +52,8 @@ public final class Broadcasting {
         int[] outShape = broadcastShape(shapeA, shapeB);
         int outNdim = outShape.length;
         int outSize = 1;
-        for (int d : outShape) outSize *= d;
+        for (int d : outShape)
+            outSize *= d;
 
         double[] result = new double[outSize];
         int[] outIdx = new int[outNdim];
@@ -68,7 +69,8 @@ public final class Broadcasting {
             // increment outIdx in row-major order
             for (int d = outNdim - 1; d >= 0; d--) {
                 outIdx[d]++;
-                if (outIdx[d] < outShape[d]) break;
+                if (outIdx[d] < outShape[d])
+                    break;
                 outIdx[d] = 0;
             }
         }
@@ -76,7 +78,8 @@ public final class Broadcasting {
     }
 
     // Maps an output multi-index to a source ndarray's multi-index,
-    // applying broadcasting rules (dim of size 1 -> index 0, missing leading dims -> dropped).
+    // applying broadcasting rules (dim of size 1 -> index 0, missing leading dims
+    // -> dropped).
     private static int[] mapIndex(int[] outIdx, int[] srcShape) {
         int srcNdim = srcShape.length;
         int outNdim = outIdx.length;
@@ -94,11 +97,16 @@ public final class Broadcasting {
     // Applies the binary operation on two scalars.
     private static double applyOp(double a, double b, Op op) {
         switch (op) {
-            case ADD: return a + b;
-            case SUB: return a - b;
-            case MUL: return a * b;
-            case DIV: return a / b;
-            default:  throw new IllegalStateException("Unknown op: " + op);
+            case ADD:
+                return a + b;
+            case SUB:
+                return a - b;
+            case MUL:
+                return a * b;
+            case DIV:
+                return a / b;
+            default:
+                throw new IllegalStateException("Unknown op: " + op);
         }
     }
 

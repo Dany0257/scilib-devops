@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests unitaires pour l'utilitaire d'affichage NdarrayPrinter.
  */
-public class NdarrayPrinterTest {
+class NdarrayPrinterTest {
 
     @Test
-    public void testFormat1D() {
+    void testFormat1D() {
         NdarrayInterface a = NdarrayFactory.array(new double[]{1.0, 2.5, 3.0});
         String expected = "[1.0, 2.5, 3.0]";
         assertEquals(expected, NdarrayPrinter.format(a));
     }
 
     @Test
-    public void testFormat2D() {
+    void testFormat2D() {
         // On crée un tableau 2x2 rempli de zéros puis on modifie les valeurs
         NdarrayInterface a = NdarrayFactory.zeros(2, 2);
         a.set(1.0, 0, 0);
@@ -29,7 +29,7 @@ public class NdarrayPrinterTest {
     }
 
     @Test
-    public void testFormatFallback3D() {
+    void testFormatFallback3D() {
         NdarrayInterface a = NdarrayFactory.zeros(2, 2, 2);
         String expected = "Ndarray(shape=(2, 2, 2))";
         assertEquals(expected, NdarrayPrinter.format(a));
