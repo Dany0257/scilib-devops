@@ -1,0 +1,50 @@
+---
+- name: Configuration de la VM Scilib
+  hosts: scilib_vm
+  become: yes
+  tasks:
+    - name: Mise à jour du cache apt
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Installation des dépendances Docker et Python
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - python3-docker # Requis par le module Ansible docker_container
+        state: present
+
+    - name: Ajout de la clé GPG de Docker
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Ajout du dépôt Docker
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Installation de Docker CE
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Exécution de test de la bibliothèque Scilib
+      docker_container:
+        name: scilib-test-run
+        image: ghcr.io/dany0257/scilib-devops:latest
+        state: started
+        pull: yes
+        auto_remove: yes # Supprime le conteneur après exécution (car c'est un script, pas un serveur)
+        detach: false # Attend la fin de l'exécution
+      register: container_output
+
+    - name: Affichage du résultat de la démo
+      debug:
+        var: container_output.ansible_facts.docker_container.Output
+

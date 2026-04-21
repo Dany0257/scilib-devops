@@ -6,93 +6,98 @@ import fr.uga.im2ag.scilib.core.Ndarray;
 import fr.uga.im2ag.scilib.core.UFuncs;
 import fr.uga.im2ag.scilib.core.Broadcasting;
 
+import java.util.logging.Logger;
+
 /**
  * Application de Démonstration complète de la bibliothèque Scilib-DevOps
  */
 public class App {
+
+    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+
     public static void main(String[] args) {
-        System.out.println("=================================================");
-        System.out.println("   DÉMONSTRATION COMPLÈTE - SCI-LIB DEVOPS");
-        System.out.println("=================================================\n");
+        LOGGER.info("=================================================");
+        LOGGER.info("   DÉMONSTRATION COMPLÈTE - SCI-LIB DEVOPS");
+        LOGGER.info("=================================================");
 
         // --- 1. CRÉATION ---
-        System.out.println("1. MÉTHODES DE CRÉATION :");
+        LOGGER.info("1. MÉTHODES DE CRÉATION :");
 
-        System.out.println("- zeros(2, 3) :");
+        LOGGER.info("- zeros(2, 3) :");
         NdarrayInterface z = NdarrayFactory.zeros(2, 3);
-        System.out.println(z);
+        LOGGER.info(String.valueOf(z));
 
-        System.out.println("\n- ones(3, 3) :");
+        LOGGER.info("\n- ones(3, 3) :");
         NdarrayInterface o = NdarrayFactory.ones(3, 3);
-        System.out.println(o);
+        LOGGER.info(String.valueOf(o));
 
-        System.out.println("\n- arange(0, 10, 1) :");
+        LOGGER.info("\n- arange(0, 10, 1) :");
         NdarrayInterface r = NdarrayFactory.arange(0, 10, 1);
-        System.out.println(r);
+        LOGGER.info(String.valueOf(r));
 
-        System.out.println("\n- array() à partir d'un tableau Java :");
+        LOGGER.info("\n- array() à partir d'un tableau Java :");
         NdarrayInterface a = NdarrayFactory.array(new double[] { 1.5, 2.5, 3.5 });
-        System.out.println(a);
+        LOGGER.info(String.valueOf(a));
 
         // --- 2. ATTRIBUTS ---
-        System.out.println("\n2. ATTRIBUTS (Propriétés du tableau) :");
+        LOGGER.info("\n2. ATTRIBUTS (Propriétés du tableau) :");
         NdarrayInterface m = NdarrayFactory.arange(1, 7, 1).reshape(2, 3);
-        System.out.println("Matrice m :\n" + m);
-        System.out.println("Nombre de dimensions (ndim) : " + m.getNdim());
-        System.out.println("Forme (shape) : " + m.getShape());
-        System.out.println("Taille totale (size) : " + m.getSize());
+        LOGGER.info("Matrice m :\n" + m);
+        LOGGER.info("Nombre de dimensions (ndim) : " + m.getNdim());
+        LOGGER.info("Forme (shape) : " + m.getShape());
+        LOGGER.info("Taille totale (size) : " + m.getSize());
 
         // --- 3. ACCÈS ET MODIFICATION ---
-        System.out.println("\n3. ACCÈS ET MODIFICATION :");
-        System.out.println("Valeur à (0, 0) : " + m.get(0, 0));
+        LOGGER.info("\n3. ACCÈS ET MODIFICATION :");
+        LOGGER.info("Valeur à (0, 0) : " + m.get(0, 0));
         m.set(99.0, 0, 0);
-        System.out.println("Après m.set(99.0, 0, 0) :\n" + m);
+        LOGGER.info("Après m.set(99.0, 0, 0) :\n" + m);
 
         // --- 4. OPÉRATIONS ARITHMÉTIQUES ---
-        System.out.println("\n4. OPÉRATIONS ARITHMÉTIQUES :");
+        LOGGER.info("\n4. OPÉRATIONS ARITHMÉTIQUES :");
 
-        System.out.println("- Addition de deux tableaux (m + m) :");
+        LOGGER.info("- Addition de deux tableaux (m + m) :");
         NdarrayInterface resAdd = m.add(m);
-        System.out.println(resAdd);
+        LOGGER.info(String.valueOf(resAdd));
 
-        System.out.println("\n- Addition d'un scalaire (m + 10.0) :");
+        LOGGER.info("\n- Addition d'un scalaire (m + 10.0) :");
         NdarrayInterface resScalar = m.add(10.0);
-        System.out.println(resScalar);
+        LOGGER.info(String.valueOf(resScalar));
 
-        System.out.println("\n- Addition en place (+= 1.0) sur la matrice :");
+        LOGGER.info("\n- Addition en place (+= 1.0) sur la matrice :");
         m.addInPlace(1.0);
-        System.out.println(m);
+        LOGGER.info(String.valueOf(m));
 
-        System.out.println("\n- Addition en place (+ m) sur elle-même :");
+        LOGGER.info("\n- Addition en place (+ m) sur elle-même :");
         m.addInPlace(m);
-        System.out.println(m);
+        LOGGER.info(String.valueOf(m));
 
         // --- 5. TRANSFORMATION ---
-        System.out.println("\n5. TRANSFORMATION (Reshape) :");
-        System.out.println("Mutation d'une matrice 2x3 en 3x2 :");
+        LOGGER.info("\n5. TRANSFORMATION (Reshape) :");
+        LOGGER.info("Mutation d'une matrice 2x3 en 3x2 :");
         NdarrayInterface reshaped = m.reshape(3, 2);
-        System.out.println(reshaped);
+        LOGGER.info(String.valueOf(reshaped));
 
         // --- 6. FONCTIONS UNIVERSELLES (UFuncs) ---
-        System.out.println("\n6. FONCTIONS UNIVERSELLES (UFuncs) :");
+        LOGGER.info("\n6. FONCTIONS UNIVERSELLES (UFuncs) :");
         Ndarray v = (Ndarray) NdarrayFactory.array(new double[] { 1.0, 4.0, 9.0 });
-        System.out.println("Vecteur v : " + v);
-        System.out.println("Racine carrée (sqrt) : " + UFuncs.sqrt(v));
-        System.out.println("Exponentielle (exp)  : " + UFuncs.exp(v));
+        LOGGER.info("Vecteur v : " + v);
+        LOGGER.info("Racine carrée (sqrt) : " + UFuncs.sqrt(v));
+        LOGGER.info("Exponentielle (exp)  : " + UFuncs.exp(v));
 
         // --- 7. BROADCASTING (NumPy-Style) ---
-        System.out.println("\n7. BROADCASTING :");
+        LOGGER.info("\n7. BROADCASTING :");
         Ndarray matrix = (Ndarray) NdarrayFactory.ones(2, 3);
         Ndarray row = (Ndarray) NdarrayFactory.array(new double[] { 10, 20, 30 });
-        System.out.println("Matrice (2,3) :\n" + matrix);
-        System.out.println("Ligne (3,) : " + row);
+        LOGGER.info("Matrice (2,3) :\n" + matrix);
+        LOGGER.info("Ligne (3,) : " + row);
 
-        System.out.println("Résultat de l'addition avec Broadcasting :");
+        LOGGER.info("Résultat de l'addition avec Broadcasting :");
         Ndarray resBroadcast = Broadcasting.add(matrix, row);
-        System.out.println(resBroadcast);
+        LOGGER.info(String.valueOf(resBroadcast));
 
-        System.out.println("\n=================================================");
-        System.out.println("   FIN DE LA DÉMONSTRATION");
-        System.out.println("=================================================");
+        LOGGER.info("\n=================================================");
+        LOGGER.info("   FIN DE LA DÉMONSTRATION");
+        LOGGER.info("=================================================");
     }
 }

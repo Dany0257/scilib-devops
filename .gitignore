@@ -15,3 +15,13 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Secrets and Infrastructure
+credentials.json
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Fichiers Ansible locaux
+inventory.ini
+*.retry
