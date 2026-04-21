@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml/badge.svg)](https://github.com/Dany0257/scilib-devops/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/badge/coverage-Jacoco-blue)
-[![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=M1-DEVOPS&metric=alert_status)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=M1-DEVOPS)
+[![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=M1-DEVOPS&metric=alert_status&token=sqb_2baf99df0e09b55a97cbe15c808200e6804f4e11)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=M1-DEVOPS)
 
 Bibliothèque de calcul scientifique en Java, inspirée de NumPy (M1 INFO DevOps - 2026).
 
@@ -27,7 +27,7 @@ La bibliothèque `scilib-devops` permet de manipuler des tableaux multidimension
 - **Broadcasting** : Support complet des règles de diffusion NumPy pour les opérations binaires entre tableaux de dimensions différentes.
 - **Affichage** : Formatage textuel optimisé pour la lecture dans la console (style NumPy).
 
-## 🚀 Guide de démarrage rapide
+## Guide de démarrage rapide
 
 Pour cloner et tester le projet immédiatement :
 
@@ -84,25 +84,34 @@ Nous avons adopté un workflow collaboratif basé sur des **feature branches** :
 ## Livraison Continue (Docker)
 
 Conformément aux attentes DevOps, nous générons une image Docker "prête à l'emploi" qui contient et exécute automatiquement notre application de démonstration.
-L'image est construite via un `Dockerfile` multi-stage pour garantir un poids minimal, puis elle est poussée automatiquement par notre CI vers le registre **GitHub Container Registry (GHCR)**.
+L'image est construite via un `Dockerfile` multi-stage (distribué via **Eclipse Temurin 17**) pour garantir un poids minimal, puis elle est poussée automatiquement par notre CI vers le registre **GitHub Container Registry (GHCR)**.
 
-🔗 **Lien vers le dépôt d'images** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
+**Lien vers le registre** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
 
-Vous pouvez tester l'image locale ou distante en tapant :
+Pour tester la bibliothèque immédiatement sans rien installer :
 ```bash
 docker run --rm ghcr.io/dany0257/scilib-devops:latest
 ```
+
+## Infrastructure-as-Code (Terraform & Ansible)
+
+Pour l'étape avancée du projet, nous avons automatisé le déploiement de la bibliothèque sur le Cloud (**Google Cloud Platform**) via une approche IaC :
+
+1.  **Terraform** : Provisionne automatiquement une machine virtuelle `e2-micro` sur GCP avec les règles de pare-feu SSH appropriées.
+2.  **Ansible** : Configure la machine distante (installation de Docker et des dépendances Python) et déploie le conteneur de la bibliothèque pour un test d'intégration grandeur nature.
+
+Les fichiers de configuration se trouvent dans le dossier `/infra`.
 
 ## Architecture Technique
 
 Le cœur de la bibliothèque repose sur une structure de données **Row-Major** :
 - Les données multi-dimensionnelles sont stockées dans un unique tableau de `double[]` à plat pour optimiser les performances mémoire.
-- La classe `Shape` gère la correspondance entre les indices multi-dimensionnels et l'index 1D physique.
-- L'architecture est modulaire : les opérations avancées (Broadcasting, UFuncs) sont séparées du cœur (`Ndarray`) pour faciliter la maintenance.
+- La classe `Shape` gère la correspondance entre les indices multi-dimensionnels et l'index 1D physique (sécurisé par clonage défensif).
+- L'architecture est modulaire : les opérations avancées (**Broadcasting**, **UFuncs**) sont séparées du cœur (`Ndarray`) pour faciliter la maintenance et l'évolution.
 
 ## Feedback
 
-Le projet nous a permis de mettre en pratique les concepts de DevOps dans un environnement collaboratif réel. L'automatisation des tests via GitHub Actions nous a fait gagner un temps précieux en garantissant que les nouvelles modifications ne cassaient pas l'existant. La configuration de JaCoCo nous a poussés à maintenir un haut niveau de qualité et de couverture de code.
+Le projet nous a permis de mettre en pratique les concepts de DevOps dans un environnement collaboratif réel. L'automatisation des tests via GitHub Actions nous a fait gagner un temps précieux en garantissant que les nouvelles modifications ne cassaient pas l'existant. La configuration de SonarQube et JaCoCo nous a poussés à maintenir un niveau d'excellence technique constant tout au long du développement.
 
 ---
 *Projet réalisé dans le cadre du module DevOps - Master 1 Informatique - UFR IM2AG.*
