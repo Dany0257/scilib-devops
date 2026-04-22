@@ -87,17 +87,19 @@ Nous avons adopté un workflow collaboratif basé sur des **feature branches** :
 - Toute nouvelle modification passe par une branche dédiée (ex: `feature/ndarray-core`) et fait l'objet d'une **Pull Request** avant d'être fusionnée dans `develop`.
 - Nous avons mis en place des **protections de branches** sur `main` et `develop` pour interdire les push directs et forcer le passage par des Pull Requests.
 
-## Livraison Continue (Docker)
+## Livraison Continue (CD/CD)
 
-Conformément aux attentes DevOps, nous générons une image Docker "prête à l'emploi" qui contient et exécute automatiquement notre application de démonstration.
-L'image est construite via un `Dockerfile` multi-stage (distribué via **Eclipse Temurin 17**) pour garantir un poids minimal, puis elle est poussée automatiquement par notre CI vers le registre **GitHub Container Registry (GHCR)**.
+Conformément aux attentes DevOps, nous avons mis en place plusieurs canaux de livraison automatique via GitHub Actions :
 
-**Lien vers le registre** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
+- **Docker** : Une image "prête à l'emploi" est publiée sur **GitHub Container Registry (GHCR)**. Elle exécute automatiquement notre application de démonstration.
+  - **Lien vers le registre** : [ghcr.io/Dany0257/scilib-devops](https://github.com/Dany0257/scilib-devops/pkgs/container/scilib-devops)
+  - Commande test : `docker run --rm ghcr.io/dany0257/scilib-devops:latest`
 
-Pour tester la bibliothèque immédiatement sans rien installer :
-```bash
-docker run --rm ghcr.io/dany0257/scilib-devops:latest
-```
+- **Maven** : La bibliothèque est déployée sous forme d'artefact `.jar` dans le **GitHub Package Registry**. Cela permet d'importer `scilib-devops` comme une dépendance officielle dans d'autres projets Maven.
+  - **Lien vers le package** : [GitHub Packages](https://github.com/Dany0257/scilib-devops/packages)
+
+- **Javadoc** : La documentation technique est générée et hébergée sur **GitHub Pages**.
+  - **Lien vers la Javadoc** : [https://dany0257.github.io/scilib-devops/](https://dany0257.github.io/scilib-devops/)
 
 ## Infrastructure-as-Code (Terraform & Ansible)
 
