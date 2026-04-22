@@ -1,14 +1,19 @@
 package fr.uga.im2ag.scilib.core;
 
-// Universal functions (ufuncs) for Ndarray.
+/**
+ * Fonctions universelles (ufuncs) pour les Ndarrays.
+ * Fournit des opérations mathématiques élément par élément.
+ */
 
 public final class UFuncs {
 
     private UFuncs() {
-        // utility class, no instantiation
+        // classe utilitaire, pas d'instanciation
     }
 
-    // Applies a function f to each element and returns a new ndarray.
+    /**
+     * Applique une fonction f à chaque élément et retourne un nouveau ndarray.
+     */
     private static Ndarray apply(Ndarray a, java.util.function.DoubleUnaryOperator f) {
         double[] src = a.getData();
         double[] dst = new double[src.length];
@@ -18,7 +23,9 @@ public final class UFuncs {
         return new Ndarray(dst, a.getShape().getDims());
     }
 
-    // Applies a function f to each element in place (modifies a).
+    /**
+     * Applique une fonction f à chaque élément en place (modifie a).
+     */
     private static Ndarray applyInPlace(Ndarray a, java.util.function.DoubleUnaryOperator f) {
         int n = a.getSize();
         int[] dims = a.getShape().getDims();
@@ -30,13 +37,15 @@ public final class UFuncs {
         return a;
     }
 
-    // Writes a flat array back into a ndarray via multi-index set().
+    /**
+     * Réécrit un tableau plat dans un ndarray via des indices multi-dimensionnels.
+     */
     private static void writeBackFlat(Ndarray a, double[] flat, int[] dims) {
         int ndim = dims.length;
         int[] idx = new int[ndim];
         for (int k = 0; k < flat.length; k++) {
             a.set(flat[k], idx);
-            // increment idx in row-major order
+            // incrémentation de idx en ordre row-major
             for (int d = ndim - 1; d >= 0; d--) {
                 idx[d]++;
                 if (idx[d] < dims[d])
@@ -46,7 +55,9 @@ public final class UFuncs {
         }
     }
 
-    // Element-wise square root.
+    /**
+     * Racine carrée élément par élément.
+     */
     public static Ndarray sqrt(Ndarray a) {
         return apply(a, Math::sqrt);
     }
@@ -55,7 +66,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::sqrt);
     }
 
-    // Element-wise exponential.
+    /**
+     * Exponentielle élément par élément.
+     */
     public static Ndarray exp(Ndarray a) {
         return apply(a, Math::exp);
     }
@@ -64,7 +77,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::exp);
     }
 
-    // Element-wise natural logarithm.
+    /**
+     * Logarithme naturel élément par élément.
+     */
     public static Ndarray log(Ndarray a) {
         return apply(a, Math::log);
     }
@@ -73,7 +88,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::log);
     }
 
-    // Element-wise absolute value.
+    /**
+     * Valeur absolue élément par élément.
+     */
     public static Ndarray abs(Ndarray a) {
         return apply(a, Math::abs);
     }
@@ -82,7 +99,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::abs);
     }
 
-    // Element-wise negation.
+    /**
+     * Négation élément par élément.
+     */
     public static Ndarray neg(Ndarray a) {
         return apply(a, x -> -x);
     }
@@ -91,7 +110,9 @@ public final class UFuncs {
         return applyInPlace(a, x -> -x);
     }
 
-    // Element-wise square.
+    /**
+     * Carré élément par élément.
+     */
     public static Ndarray square(Ndarray a) {
         return apply(a, x -> x * x);
     }
@@ -100,7 +121,9 @@ public final class UFuncs {
         return applyInPlace(a, x -> x * x);
     }
 
-    // Element-wise sine.
+    /**
+     * Sinus élément par élément.
+     */
     public static Ndarray sin(Ndarray a) {
         return apply(a, Math::sin);
     }
@@ -109,7 +132,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::sin);
     }
 
-    // Element-wise cosine.
+    /**
+     * Cosinus élément par élément.
+     */
     public static Ndarray cos(Ndarray a) {
         return apply(a, Math::cos);
     }
@@ -118,7 +143,9 @@ public final class UFuncs {
         return applyInPlace(a, Math::cos);
     }
 
-    // Element-wise tangent.
+    /**
+     * Tangente élément par élément.
+     */
     public static Ndarray tan(Ndarray a) {
         return apply(a, Math::tan);
     }
