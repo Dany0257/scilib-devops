@@ -18,13 +18,14 @@ La bibliothèque `scilib-devops` permet de manipuler des tableaux multidimension
   - `NdarrayFactory.arange(start, stop, step)` : Crée une séquence de nombres.
   - `NdarrayFactory.array(double[])` : Crée un tableau à partir de données existantes.
 - **Opérations Arithmétiques** :
-  - Addition élément-par-élément (`add`).
-  - Addition en place (`addInPlace` ou `+=`).
-  - Support de l'addition de scalaires.
+  - Support complet des opérations élément-par-élément : addition (`add`), soustraction (`sub`), multiplication (`mul`) et division (`div`).
+  - Versions "en place" pour l'addition (`addInPlace` ou `+=`).
+  - Support de l'addition de scalaires (ex: `m.add(10.0)`).
 - **Transformation** :
-  - `reshape(newDims...)` pour changer la structure du tableau sans modifier les données.
-- **Fonctions Universelles (UFuncs)** : Support de fonctions mathématiques (`sqrt`, `exp`, `log`, `sin`, `cos`, etc.) en versions standard et en-place.
+  - `reshape(newDims...)` pour changer la structure du tableau sans modifier les données (Row-major order).
+- **Fonctions Universelles (UFuncs)** : Support de fonctions mathématiques (`sqrt`, `exp`, `log`, `sin`, `cos`, etc.) en versions standard (création d'un nouveau tableau) et **en-place (modification du tableau existant)** pour optimiser la mémoire.
 - **Broadcasting** : Support complet des règles de diffusion NumPy pour les opérations binaires entre tableaux de dimensions différentes.
+- **Gestion des Erreurs** : Le projet intègre des exceptions spécifiques pour garantir la robustesse (ex: `ShapeMismatchException` pour les dimensions incompatibles ou `IndexOutOfBoundsNdarrayException` pour les accès hors limites).
 - **Affichage** : Formatage textuel optimisé pour la lecture dans la console (style NumPy).
 
 ## Documentation
